@@ -1,14 +1,13 @@
 import React from 'react';
 import './App.css';
-import Banner from '../component/banner';
+import Banner from '../components/banner';
+import HouseList from '../components/houseList';
 
 function App() {
   return (
     <>
-      <div>
-        <p>Hello World</p>
-      </div>
-      <Banner />
+      <Banner headerText="Providing house all over the world" />
+      <HouseList/>
     </>
   );
 }
