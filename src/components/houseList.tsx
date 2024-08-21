@@ -1,18 +1,8 @@
-import { useEffect, useState } from "react";
 import HouseRow from "./houseRow";
-import House from "../models/house";
+import useHouses from "../hooks/useHouses";
 
 export default function HouseList(props: any) {
-  const [houses, setHouses] = useState<House[]>([]);
-
-  useEffect(()=>{
-    const fetchHouses = async () => {
-      const response = await fetch("https://my-json-server.typicode.com/vincentescarcha/demo/house");
-      const houses = await response.json();
-      setHouses(houses);
-    };
-    fetchHouses();
-  }, []);
+  const { houses, setHouses } = useHouses();
 
   function addHouse() {
     setHouses(
@@ -23,7 +13,7 @@ export default function HouseList(props: any) {
         country: "USA",
         price: 1000000
       }
-    ]);
+      ]);
   }
 
   return (
@@ -42,7 +32,7 @@ export default function HouseList(props: any) {
           </tr>
         </thead>
         <tbody>
-          {houses.map(x => <HouseRow key={x.id} house={x} selectHouse={props.selectHouse}/>)}
+          {houses.map(x => <HouseRow key={x.id} house={x} selectHouse={props.selectHouse} />)}
         </tbody>
       </table>
       <button className="btn btn-primary" onClick={addHouse}>Add</button>

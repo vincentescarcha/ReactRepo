@@ -1,5 +1,5 @@
 import currencyFormatter from "../helpers/currencyFormatter";
-import House from "../models/house";
+import House from "../models/IHouse";
 
 export default function HouseRow(props: any) {
   let house = props.house;
