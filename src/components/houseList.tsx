@@ -1,19 +1,38 @@
-const houses = [
-  {
-    id: 1,
-    address: "12 Valley of Kings, Geneva",
-    country: "Switzerland",
-    price: 900000
-  },
-  {
-    id: 2,
-    address: "89 Road of Forks, Bern",
-    country: "Switzerland",
-    price: 500000
-  }
-]
+import { useEffect, useState } from "react";
+import HouseRow from "./houseRow";
+
+interface House {
+  id: number;
+  address: string;
+  country: string;
+  price: number;
+}
+
 
 export default function HouseList() {
+  const [houses, setHouses] = useState<House[]>([]);
+
+  useEffect(()=>{
+    const fetchHouses = async () => {
+      const response = await fetch("https://my-json-server.typicode.com/vincentescarcha/demo/house");
+      const houses = await response.json();
+      setHouses(houses);
+    };
+    fetchHouses();
+  });
+
+  function addHouse() {
+    setHouses(
+      [...houses,
+      {
+        id: 3,
+        address: "32 Valley Way, New York",
+        country: "USA",
+        price: 1000000
+      }
+    ]);
+  }
+
   return (
     <>
       <div className="row mb-2">
@@ -30,15 +49,10 @@ export default function HouseList() {
           </tr>
         </thead>
         <tbody>
-          {houses.map(x => (
-            <tr key={x.id}>
-              <td>{x.address}</td>
-              <td>{x.country}</td>
-              <td>{x.price}</td>
-            </tr>
-          ))}
+          {houses.map(x => <HouseRow key={x.id} house={x} />)}
         </tbody>
       </table>
+      <button className="btn btn-primary" onClick={addHouse}>Add</button>
     </>
   );
 }
