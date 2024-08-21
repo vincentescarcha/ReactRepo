@@ -1,10 +1,11 @@
 import currencyFormatter from "../helpers/currencyFormatter";
+import House from "../models/house";
 
 export default function HouseRow(props: any) {
   let house = props.house;
 
   return (
-    <tr>
+    <tr onClick={() => props.selectHouse((oldHouse: House) => house)}>
       <td>{house.address}</td>
       <td>{house.country}</td>
       {house.price && (

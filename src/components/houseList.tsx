@@ -1,15 +1,8 @@
 import { useEffect, useState } from "react";
 import HouseRow from "./houseRow";
+import House from "../models/house";
 
-interface House {
-  id: number;
-  address: string;
-  country: string;
-  price: number;
-}
-
-
-export default function HouseList() {
+export default function HouseList(props: any) {
   const [houses, setHouses] = useState<House[]>([]);
 
   useEffect(()=>{
@@ -49,7 +42,7 @@ export default function HouseList() {
           </tr>
         </thead>
         <tbody>
-          {houses.map(x => <HouseRow key={x.id} house={x} />)}
+          {houses.map(x => <HouseRow key={x.id} house={x} selectHouse={props.selectHouse}/>)}
         </tbody>
       </table>
       <button className="btn btn-primary" onClick={addHouse}>Add</button>
