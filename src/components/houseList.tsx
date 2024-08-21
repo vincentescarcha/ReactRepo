@@ -19,7 +19,7 @@ export default function HouseList() {
       setHouses(houses);
     };
     fetchHouses();
-  });
+  }, []);
 
   function addHouse() {
     setHouses(
