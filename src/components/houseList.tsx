@@ -1,8 +1,14 @@
 import HouseRow from "./houseRow";
 import useHouses from "../hooks/useHouses";
+import loadingStatus from "../helpers/loadingStatus";
+import LoadingIndicator from "./loadingIndicator";
 
 export default function HouseList(props: any) {
-  const { houses, setHouses } = useHouses();
+  const { houses, setHouses, loadingState } = useHouses();
+
+  if (loadingState !== loadingStatus.loaded) {
+    return <LoadingIndicator loadingState={loadingState}/>
+  }
 
   function addHouse() {
     setHouses(

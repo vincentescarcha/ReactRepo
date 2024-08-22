@@ -1,17 +1,19 @@
 import { useEffect, useState } from "react";
 import House from "../models/IHouse";
+import useGetRequest from "./useGetRequest";
 
 export default function useHouses() {
   const [houses, setHouses] = useState<House[]>([]);
+  const {get, loadingState} = useGetRequest("https://my-json-server.typicode.com/vincentescarcha/demo/house");
 
-  useEffect(()=>{
+
+  useEffect(() => {
     const fetchHouses = async () => {
-      const response = await fetch("https://my-json-server.typicode.com/vincentescarcha/demo/house");
-      const houses = await response.json();
-      setHouses(houses);
+      const house = await get();
+      setHouses(house);
     };
     fetchHouses();
-  }, []);
+  }, [get]);
 
-  return {houses, setHouses}
+  return { houses, setHouses, loadingState };
 }
