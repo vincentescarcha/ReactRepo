@@ -3,4 +3,6 @@ export default interface IHouse {
   address: string;
   country: string;
   price: number;
+  description: string;
+  photo: string;
 }

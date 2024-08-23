@@ -1,11 +1,14 @@
+import { useContext } from "react";
 import currencyFormatter from "../helpers/currencyFormatter";
-import House from "../models/IHouse";
+import { navigationContext } from "../app/App";
+import navValues from "../helpers/navValues";
 
 export default function HouseRow(props: any) {
   let house = props.house;
+  const { navigate } = useContext(navigationContext);
 
   return (
-    <tr onClick={() => props.selectHouse((oldHouse: House) => house)}>
+    <tr onClick={() => navigate(navValues.house, house)}>
       <td>{house.address}</td>
       <td>{house.country}</td>
       {house.price && (

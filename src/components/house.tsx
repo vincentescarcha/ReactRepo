@@ -1,13 +1,16 @@
+import { useContext } from "react";
 import currencyFormatter from "../helpers/currencyFormatter";
 import defaultPhoto from "../helpers/defaultPhoto";
+import { navigationContext } from "../app/App";
 
-export default function House(props: any) {
-  let house = props.house;
+export default function House() {
+  const { param: house } = useContext(navigationContext);
   return (
+    house ? (
     <div className="row">
       <div className="col-6">
         <div className="row">
-        <img
+          <img
             className="img-fluid"
             src={
               house.photo ? `./houseImages/${house.photo}.jpeg` : defaultPhoto
@@ -33,5 +36,8 @@ export default function House(props: any) {
         </div>
       </div>
     </div>
+    ) : (
+      <div>House information not available</div>
+    )
   );
 }

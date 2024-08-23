@@ -3,7 +3,7 @@ import useHouses from "../hooks/useHouses";
 import loadingStatus from "../helpers/loadingStatus";
 import LoadingIndicator from "./loadingIndicator";
 
-export default function HouseList(props: any) {
+export default function HouseList() {
   const { houses, setHouses, loadingState } = useHouses();
 
   if (loadingState !== loadingStatus.loaded) {
@@ -17,7 +17,9 @@ export default function HouseList(props: any) {
         id: 3,
         address: "32 Valley Way, New York",
         country: "USA",
-        price: 1000000
+        price: 1000000,
+        description: "",
+        photo: ""
       }
       ]);
   }
@@ -38,7 +40,7 @@ export default function HouseList(props: any) {
           </tr>
         </thead>
         <tbody>
-          {houses.map(x => <HouseRow key={x.id} house={x} selectHouse={props.selectHouse} />)}
+          {houses.map(x => <HouseRow key={x.id} house={x} />)}
         </tbody>
       </table>
       <button className="btn btn-primary" onClick={addHouse}>Add</button>
