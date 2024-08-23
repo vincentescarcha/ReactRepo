@@ -1,27 +1,30 @@
 import HouseRow from "./houseRow";
-import useHouses from "../hooks/useHouses";
-import loadingStatus from "../helpers/loadingStatus";
 import LoadingIndicator from "./loadingIndicator";
+import loadingStatus from "../helpers/loadingStatus";
+import useHouses from "../hooks/useHouses";
+
 
 export default function HouseList() {
   const { houses, setHouses, loadingState } = useHouses();
 
   if (loadingState !== loadingStatus.loaded) {
-    return <LoadingIndicator loadingState={loadingState}/>
+    return <LoadingIndicator loadingState={loadingState} />
   }
 
   function addHouse() {
-    setHouses(
-      [...houses,
-      {
-        id: 3,
-        address: "32 Valley Way, New York",
-        country: "USA",
-        price: 1000000,
-        description: "",
-        photo: ""
-      }
+    if (Array.isArray(houses)) {
+      setHouses([
+        ...houses,
+        {
+          id: 3,
+          address: "32 Valley Way, New York",
+          country: "USA",
+          price: 1000000,
+          description: "",
+          photo: ""
+        }
       ]);
+    }
   }
 
   return (
@@ -40,7 +43,15 @@ export default function HouseList() {
           </tr>
         </thead>
         <tbody>
-          {houses.map(x => <HouseRow key={x.id} house={x} />)}
+          {Array.isArray(houses) ? (
+            houses.map(house => (
+              <HouseRow key={house.id} house={house} />
+            ))
+          ) : (
+            <tr>
+              <td colSpan={3}>Error 500</td>
+            </tr>
+          )}
         </tbody>
       </table>
       <button className="btn btn-primary" onClick={addHouse}>Add</button>

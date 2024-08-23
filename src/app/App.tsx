@@ -1,28 +1,27 @@
-import React, { useCallback, useState } from 'react';
 import './App.css';
 import Banner from '../components/banner';
-import navValues from '../helpers/navValues';
-import ComponentPicker from '../components/componentPicker';
-import INavState from '../models/INavState'
-import IHouse from '../models/IHouse';
-
-const navigationContext = React.createContext<INavState>({current: navValues.home, navigate: () => {}});
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import House from '../components/house';
+import HouseList from '../components/houseList';
 
 function App() {
-  const navigate = useCallback(
-    (navTo: string, param?: IHouse) => setNav({ current: navTo, param, navigate }),
-    []
-  );
-
-  const [nav, setNav] = useState<INavState>({ current: navValues.home, navigate });
-
   return (
-    <navigationContext.Provider value={nav}>
+    <div>
+      <BrowserRouter>
       <Banner headerText="Providing house all over the world" />
-      <ComponentPicker currentNavLocation={nav.current} />
-    </navigationContext.Provider>
+      
+        <Routes>
+          <Route path="/" element={<HouseList />} />
+          <Route path="/House" element={<House />} />
+          <Route path="*" element={(
+            <h3>
+              Page not found
+            </h3>
+          )} />
+        </Routes>
+      </BrowserRouter>
+    </div>
   );
 }
 
-export { navigationContext };
 export default App;

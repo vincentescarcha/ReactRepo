@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import House from "../models/IHouse";
+import IHouse from "../models/IHouse";
 import useGetRequest from "./useGetRequest";
 
-export default function useHouses() {
-  const [houses, setHouses] = useState<House[]>([]);
-  const {get, loadingState} = useGetRequest("https://my-json-server.typicode.com/vincentescarcha/demo/house");
+export default function useHouses(id?: number | string) {
+  const [houses, setHouses] = useState<IHouse | IHouse[]>([]);
+  const { get, loadingState } = useGetRequest(`https://my-json-server.typicode.com/vincentescarcha/demo/house${id ? `/${id}` : ''}`);
 
 
   useEffect(() => {

@@ -1,14 +1,12 @@
-import { useContext } from "react";
 import currencyFormatter from "../helpers/currencyFormatter";
-import { navigationContext } from "../app/App";
-import navValues from "../helpers/navValues";
+import { useNavigate } from "react-router-dom";
 
 export default function HouseRow(props: any) {
-  let house = props.house;
-  const { navigate } = useContext(navigationContext);
+  const house = props.house;
+  const navigate = useNavigate();
 
   return (
-    <tr onClick={() => navigate(navValues.house, house)}>
+    <tr key={house.id} onClick={() => navigate(`/House?id=${house.id}`)} style={{ cursor: 'pointer' }}>
       <td>{house.address}</td>
       <td>{house.country}</td>
       {house.price && (
